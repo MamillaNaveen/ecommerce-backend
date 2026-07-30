@@ -1,4 +1,4 @@
-package com.naveen.ecommerce.common.exception;
+package com.naveen.ecommerce.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
