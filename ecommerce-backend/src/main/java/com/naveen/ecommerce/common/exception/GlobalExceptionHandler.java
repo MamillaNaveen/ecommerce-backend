@@ -1,5 +1,7 @@
 package com.naveen.ecommerce.common.exception;
 
+import com.naveen.ecommerce.category.exception.CategoryAlreadyExistsException;
+import com.naveen.ecommerce.common.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -46,6 +48,20 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.CONFLICT.value())
                 .error(HttpStatus.CONFLICT.getReasonPhrase())
                 .message(ex.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    @ExceptionHandler(CategoryAlreadyExistsException.class)
+    public ResponseEntity<ApiResponse<Object>> handleCategoryAlreadyExistsException(
+            CategoryAlreadyExistsException ex) {
+
+        ApiResponse<Object> response = ApiResponse.builder()
+                .success(false)
+                .message(ex.getMessage())
+                .data(null)
                 .timestamp(LocalDateTime.now())
                 .build();
 
